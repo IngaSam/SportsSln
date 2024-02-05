@@ -1,7 +1,7 @@
 ﻿@model ProductsListViewModel
 @foreach (var p in Model.Products)
 {
-    
+    <partial name="ProductSummary" model="p"/>
 }
 <div page-model="@Model.PagingInfo" page-action="Index"
     page-classes-enabled="true"
