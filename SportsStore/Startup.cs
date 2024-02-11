@@ -31,12 +31,15 @@ namespace SportsStore
             });
             services.AddScoped<IStoreRepository, EFStoreRepository>();//хранилище
             services.AddRazorPages();
+            services.AddDistributedMemoryCache(); //настраивает хранилище данных
+            services.AddSession();//регистрирует службы используемые для доступа к данным сеанса
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseDeveloperExceptionPage();
             app.UseStatusCodePages();
             app.UseStaticFiles();
+            app.UseSession(); //позволяет системе сеансов автоматически ассоциировать запросы с сеансами когда они поступают от клиента
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
