@@ -26,22 +26,24 @@ namespace SportsStore.Tests
             Cart testCart = new Cart();
             testCart.AddItem(p1, 2);
             testCart.AddItem(p2, 1);
-            //Организация - создание имитированного контекста страницы и сеанса
+
+            /*//Организация - создание имитированного контекста страницы и сеанса
             Mock<ISession>mockSession = new Mock<ISession>();
             byte[] data = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(testCart));
             mockSession.Setup(c => c.TryGetValue(It.IsAny<string>(), out data));
             Mock<HttpContext>mockContext= new Mock<HttpContext>();
-            mockContext.SetupGet(c=>c.Session).Returns(mockSession.Object);
+            mockContext.SetupGet(c=>c.Session).Returns(mockSession.Object);*/
+
             //Действие
-            CartModel cartModel = new CartModel(mockRepo.Object)
-            {
+            CartModel cartModel = new CartModel(mockRepo.Object, testCart);
+            /*{
                 PageContext = new PageContext(new ActionContext
                 {
                     HttpContext = mockContext.Object,
                     RouteData = new RouteData(),
                     ActionDescriptor = new PageActionDescriptor()
                 })
-            };
+            };*/
             cartModel.OnGet("myUrl");
             //Утверждение
             Assert.Equal(2, cartModel.Cart.Lines.Count());
@@ -57,23 +59,25 @@ namespace SportsStore.Tests
                 new Product{ProductID = 1, Name ="P1"}
             }).AsQueryable<Product>());
             Cart testCart = new Cart();
-            Mock<ISession> mockSession = new Mock<ISession>();
+            /*Mock<ISession> mockSession = new Mock<ISession>();
             mockSession.Setup(s => s.Set(It.IsAny<string>(), It.IsAny<byte[]>())).Callback<string, byte[]>((key, val) =>
             {
                 testCart = JsonSerializer.Deserialize<Cart>(Encoding.UTF8.GetString(val));
             });
             Mock<HttpContext> mockContext = new Mock<HttpContext>();
-            mockContext.SetupGet(c=>c.Session).Returns(mockSession.Object);
+            mockContext.SetupGet(c=>c.Session).Returns(mockSession.Object);*/
+
             //Действие
-            CartModel cartModel = new CartModel(mockRepo.Object)
-            {
+            CartModel cartModel = new CartModel(mockRepo.Object, testCart);
+           /* {
                 PageContext = new PageContext(new ActionContext
                 {
                     HttpContext = mockContext.Object,
                     RouteData = new RouteData(),
                     ActionDescriptor = new PageActionDescriptor()
                 })
-            };
+            };*/
+
             cartModel.OnPost(1, "myUrl");
             //Утверждение
             Assert.Single(testCart.Lines);
