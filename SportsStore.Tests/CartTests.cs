@@ -101,7 +101,7 @@ namespace SportsStore.Tests
             //Организация - добавление нескольких элементов в корзину
             target.AddItem(p1, 1);
             target.AddItem(p2, 1);
-            target.AddItem(p1, 10);
+            
             
             //Действие - очистка корзины
             target.Clear();
