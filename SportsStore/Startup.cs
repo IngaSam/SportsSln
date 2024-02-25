@@ -30,6 +30,7 @@ namespace SportsStore
                 opts.UseSqlServer(Configuration["ConnectionStrings:SportsStoreConnection"]);
             });
             services.AddScoped<IStoreRepository, EFStoreRepository>();//хранилище
+            services.AddScoped<IOrderRepository, EFOrderRepository>();//хранилище заказов
             services.AddRazorPages();
             services.AddDistributedMemoryCache(); //настраивает хранилище данных
             services.AddSession();//регистрирует службы используемые для доступа к данным сеанса
